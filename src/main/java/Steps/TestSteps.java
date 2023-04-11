@@ -1,5 +1,6 @@
 package Steps;
 
+import Pages.CartPage;
 import Pages.SearchPage;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
@@ -11,9 +12,11 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class Search {
+public class TestSteps {
     protected WebDriver driver;
     SearchPage searchPage;
+    CartPage cartPage;
+
     @Before
     public void before(){
         WebDriverManager.chromedriver().setup();
@@ -22,23 +25,23 @@ public class Search {
     }
 
     @Given("I navigate to hepsiburada page")
-    public void ı_navigate_to_hepsiburada_page() {
+    public void navigate_to_hepsiburada_page() {
         searchPage = new SearchPage(driver);
         searchPage.navigateToPage("https://www.hepsiburada.com");
     }
 
     @And("I close popup")
-    public void ı_ClosePopup() {
+    public void ClosePopup() {
         searchPage.acceptPopup();
     }
 
     @And("I type {string} in search area")
-    public void ıTypeInSearchArea(String arg0) {
+    public void TypeInSearchArea(String arg0) {
         searchPage.searchProduct("s23");
     }
 
     @When("I click search button")
-    public void ı_click_search_button() {
+    public void click_search_button() {
         searchPage.searchClick();
     }
 
@@ -47,6 +50,34 @@ public class Search {
         searchPage.productControl();
     }
 
+    @When("I click {string}")
+    public void Clicks23(String arg0) {
+        cartPage = new CartPage(driver);
+        cartPage.productClick();
+    }
 
+    @Then("I add product to the cart")
+    public void AddProductToTheCart() {
+        cartPage.addToCart();
+    }
 
+    @And("Verify product is in the cart")
+    public void verifyProductIsInTheCart() {
+        cartPage.productInCartCheck();
+    }
+
+    @And("I navigate purchase page")
+    public void NavigatePurchasePage() {
+        cartPage.goToBuyPage();
+    }
+
+    @And("Verify shopping button")
+    public void verifyShoppingButton() {
+        cartPage.shoppingButtonCheck();
+    }
+
+    @After
+    public void after(){
+        driver.quit();
+    }
 }
