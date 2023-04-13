@@ -37,7 +37,7 @@ public class TestSteps {
 
     @And("I type {string} in search area")
     public void TypeInSearchArea(String arg0) {
-        searchPage.searchProduct("s23");
+        searchPage.searchProduct(arg0);
     }
 
     @When("I click search button")
@@ -45,13 +45,13 @@ public class TestSteps {
         searchPage.searchClick();
     }
 
-    @Then("Verify {string} is displayed")
-    public void verifyIsDisplayed(String arg0) {
+    @Then("Verify s23 is displayed")
+    public void verifyIsDisplayed() {
         searchPage.productControl();
     }
 
-    @When("I click {string}")
-    public void Clicks23(String arg0) {
+    @When("I click s23")
+    public void Clicks23() {
         cartPage = new CartPage(driver);
         cartPage.productClick();
     }
